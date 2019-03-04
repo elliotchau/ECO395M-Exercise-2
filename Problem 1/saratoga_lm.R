@@ -7,27 +7,12 @@ summary(SaratogaHouses)
   ###Build a better model than "lm_medium" in the start script
   ###Any particularly strong drivers of house price?
 
-# baseline model
-lm_medium = lm(price ~ lotSize + age + livingArea + pctCollege + bedrooms + 
-                 fireplaces + bathrooms + rooms + heating + fuel + centralAir, data=SaratogaHouses)
-
-# Sometimes it's easier to name the variables we want to leave out
-# The command below yields exactly the same model.
-# the dot (.) means "all variables not named"
-# the minus (-) means "exclude this variable"
-lm_medium2 = lm(price ~ . - sewer - waterfront - landValue - newConstruction, data=SaratogaHouses)
-
-coef(lm_medium)
-coef(lm_medium2)
-
 # Compare out-of-sample predictive performance
 #### Create some new variables to include in the model
   #intrinsic land value to size of living area ($/sq ft)
 SaratogaHouses$valueSqFt <- SaratogaHouses$landValue/SaratogaHouses$livingArea
   # age squared; older houses significantly drop in value
 SaratogaHouses$ageSq <- SaratogaHouses$age*SaratogaHouses$age
-
-
 
 # Split into training and testing sets
 n = nrow(SaratogaHouses)
@@ -74,9 +59,6 @@ rmse(saratoga_test$price, yhat_test2)
 rmse(saratoga_test$price, yhat_test3)
   ### rmse = 61,092
 
-
-###### PART 2 ######
-  ###Turn your model into a better performing KNN model 
 # easy averaging over train/test splits
 library(mosaic)
 
@@ -116,3 +98,25 @@ rmse_vals = do(100)*{
 
 rmse_vals
 colMeans(rmse_vals)
+
+#applying the biggerboom model to every observation
+SaratogaHouses$prediction <- predict(lm_biggerboom)
+
+###### PART 2 ######
+###Turn your model into a better performing KNN model 
+n_train = round(0.8*n)  # round to nearest integer
+n_test = n - n_train
+train_cases = sample.int(n, n_train, replace=FALSE)
+test_cases = setdiff(1:n, train_cases)
+saratoga_train = SaratogaHouses[train_cases,]
+saratoga_test = SaratogaHouses[test_cases,]
+
+# Now separate the training and testing sets into features (X) and outcome (y)
+X_train = select(saratoga_train, yhat_testbiggerboom)
+y_train = select(n_train, price)
+
+X_test = select(saratoga_test, lotSize + landValue + waterfront + lotSize*livingArea 
+                + age + ageSq + bedrooms*bathrooms + heating + centralAir + livingArea + newConstruction
+                + rooms*bedrooms + rooms*bathrooms + rooms*heating + landValue*age
+                + pctCollege + valueSqFt, data=saratoga_train)
+y_test = select(n_test, price)
