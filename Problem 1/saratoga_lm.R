@@ -36,6 +36,7 @@ lm3 = lm(price ~ lotSize + landValue + waterfrontDummy + lotSize*livingArea
         + age + ageSq + bedrooms*bathrooms + heating + centralAirDummy + livingArea + newConstructionDummy
         + rooms*bedrooms + rooms*bathrooms + rooms*heating + landValue*age
         + pctCollege + valueSqFt, data=SaratogaHouses)
+summary(lm3)
 
 # Model predictions
 yhat_test1 = predict(lm1, SaratogaHouses)
@@ -147,17 +148,17 @@ rmse_vals = do(250)*{
   Xtilde_test = scale(Xtest, scale = scale_train)  # use the training set scales!
 }
 
+# Run the plot line to find where it bottoms out
 K = 15
 # fit the model
 knn_model = knn.reg(Xtilde_train, Xtilde_test, ytrain, k=K)
-
-# calculate test-set performance
-rmse(ytest, knn_model$pred)
 
 k_grid = exp(seq(log(2), log(300), length=100)) %>% round %>% unique
 rmse_grid = foreach(K = k_grid, .combine='c') %do% {
     knn_model = knn.reg(Xtilde_train, Xtilde_test, ytrain, k=K)
     rmse(ytest, knn_model$pred)
   }
-
 plot(k_grid, rmse_grid, log='x')
+
+# calculate test-set performance
+rmse(ytest, knn_model$pred)
