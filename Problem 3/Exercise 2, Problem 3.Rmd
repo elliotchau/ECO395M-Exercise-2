@@ -1,3 +1,11 @@
+---
+title: "Exercise 2, Problem 3"
+author: "Elliot"
+date: "3/15/2019"
+output: github_document
+---
+
+```{r setup, include=FALSE}
 library(stargazer)
 library(FNN)
 library(tidyverse)
@@ -90,7 +98,6 @@ for (i in 1:length(viral))
     }
   })
 }
-
 mean(predAcc, na.rm=TRUE) #49.54% accuracy
 
 #classification part 
@@ -164,17 +171,36 @@ confusion_out2
 confusion_out3
 }
 #overall accuracy of out of sample prediction
+
 sum(diag(confusion_out1))/sum(confusion_out1)
 sum(diag(confusion_out2))/sum(confusion_out2) # <-----most accurate @ 57%
-1-sum(diag(confusion_out2))/sum(confusion_out2) # opposite of accuracy rate is error rate (lowest)
 sum(diag(confusion_out3))/sum(confusion_out3)
 
 #comparison to baseline model 
 
 length(which(online_news$viral == 0))/length(online_news$viral) #50.6%
 
-#################### PART 2##################### #classification model part b using his variable name
+```
 
+
+```{r confusion_out2, echo=FALSE}
+confusion_out2
+```
+```{r error rate, echo=FALSE}
+1-sum(diag(confusion_out2))/sum(confusion_out2)
+```
+```{r true positive, echo=TRUE}
+807/(807+3074) #(1,1)/[(1,1)+(0,1)]
+```
+```{r false positive, echo=TRUE}
+330/(3718+330) #(1,0)/[(1,0)+(0,0)]
+```
+```{r compare against null, echo=FALSE}
+length(which(online_news$viral == 0))/length(online_news$viral)
+```
+
+
+```{r part 2, include=FALSE}
 viral= ifelse(online_news$shares > 1400, 1, 0)
 # re-split into train and test cases
 n=nrow(online_news)
@@ -237,10 +263,26 @@ confusion_out3
 #overall accuracy of out of sample prediction
 
 sum(diag(confusion_out1))/sum(confusion_out1)
-sum(diag(confusion_out2))/sum(confusion_out2) # <---- best @ 57.4% accuracy
+sum(diag(confusion_out2))/sum(confusion_out2)
 sum(diag(confusion_out3))/sum(confusion_out3)
 
 #comparison to baseline model 
 
-length(which(online_news$viral == 0))/length(online_news$viral) #<---50.6%
+length(which(online_news$viral == 0))/length(online_news$viral)
+```
 
+```{r confusion_out2 2, echo=FALSE}
+confusion_out2
+```
+```{r error rate 2, echo=FALSE}
+1-sum(diag(confusion_out2))/sum(confusion_out2)
+```
+```{r true positive 2, echo=TRUE}
+834/(834+3026) #(1,1)/[(1,1)+(0,1)]
+```
+```{r false positive 2, echo=TRUE}
+344/(344+3725) #(1,0)/[(1,0)+(0,0)]
+```
+```{r compare against null 2, echo=FALSE}
+length(which(online_news$viral == 0))/length(online_news$viral)
+```
