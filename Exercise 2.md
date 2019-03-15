@@ -1,4 +1,4 @@
-Exercise 1
+Exercise 2
 ===============
 By Hana Krijestorac, David Garrett, and Elliot Chau
 
