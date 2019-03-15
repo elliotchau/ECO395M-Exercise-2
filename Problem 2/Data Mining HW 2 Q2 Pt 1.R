@@ -152,7 +152,7 @@ modelLookup(model = 'rf')
 # RF model
 print(model_rf)
 
-plot(model_rf)
+plot(model_rf, main = "RF Model accuracy")
 
 #Train/Tune RF model for better results:
 # Control Parameters
