@@ -41,8 +41,7 @@ In order to predict the value of your house, we evaluated two different styles o
 Calculations were performed to determine how accurate our models were in predicting house values. Because these models are projections, each method carries a certain amount of error in its measurement. Our objective is to minimize this error. In doing so, we computed errors from Model 1 and errors from eight similar houses in Model 2. We found that Model 1 carried a lower error. This indicates that Model 1 is a better assessment of property values so that your property taxes are computed more accurately.
 
 
-
-![](Saratoga_files/figure-markdown_github/pressure-1.png)
+![rmseGrid](https://user-images.githubusercontent.com/47119252/54454908-8bba0a00-4728-11e9-8bec-443216f201e5.png)
 
 Problem 2
 ================
