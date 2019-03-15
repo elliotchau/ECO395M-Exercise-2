@@ -9,6 +9,8 @@ output: github_document
 library(stargazer)
 library(FNN)
 library(tidyverse)
+library(mosaic)
+library(foreach)
 
 online_news <- read.csv("https://raw.githubusercontent.com/jgscott/ECO395M/master/data/online_news.csv")
 
@@ -201,6 +203,11 @@ length(which(online_news$viral == 0))/length(online_news$viral)
 
 
 ```{r part 2, include=FALSE}
+library(stargazer)
+library(FNN)
+library(tidyverse)
+library(mosaic)
+library(foreach)
 viral= ifelse(online_news$shares > 1400, 1, 0)
 # re-split into train and test cases
 n=nrow(online_news)
@@ -243,7 +250,7 @@ sum(diag(confusion_in3))/sum(confusion_in3)
 
 #Out of sample confusion matrix
 
-outofsampleclass=do(100){
+outofsampleclass=do(100)*{
 phat_test1 = predict(glm1, online_news_test)
 phat_test2 = predict(glm2, online_news_test)
 phat_test3 = predict(glm3, online_news_test)

@@ -217,7 +217,7 @@ sum(diag(confusion_in3))/sum(confusion_in3)
 
 #Out of sample confusion matrix
 
-outofsampleclass=do(100){
+outofsampleclass=do(100)*{
 phat_test1 = predict(glm1, online_news_test)
 phat_test2 = predict(glm2, online_news_test)
 phat_test3 = predict(glm3, online_news_test)
