@@ -30,7 +30,7 @@ The following is the set of characteristics along with descriptions:
 	valueSqFt: landValue/livingArea to compute an intrinsic $/sq ft assessment
 
 
-We evaluate some of these characteristics together -- i.e. we see what effects some of the terms have on each other. For example, having more bathrooms relative to the number of rooms in the house increases the home's valuation. Some noted features that increase house values include lot size, square footage, and properties on a waterfront. 
+We evaluate some of these characteristics together -- i.e. we see what effects some of the terms have on each other. For example, having more bathrooms relative to the number of rooms in the house increases the home's valuation with increased convenience and more complex infrastructure. Some noted features that increase house values include lot size, square footage, and properties on a waterfront. 
 
 
 In order to predict the value of your house, we evaluated two different styles of models:
