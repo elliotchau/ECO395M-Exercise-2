@@ -47,7 +47,7 @@ Problem 2
 ================
 Hospital audit
 ----------------
-PART 1
+**Part 1**
 
 In determining what factors are the best predictors for cancer, and thus for doctors to look for when making their recall decision, our first goal was to check and see if any of the radiologists in the data set were perhaps more conservative than others when making their decision. If perhaps one doctor was more likely to recall a patient regardless of actual significant risk factors, it could bias the small data set we have towards one radiologist’s decisions. 
 
@@ -177,7 +177,7 @@ Model 3
 
 From these models, we can see that even when we hold patient factors constant for all radiologists, radiologist89 and radiologist66 are more clinically conservative than their colleagues due to having much larger odds for recalling patients than radiologists 13, 34, and 95.
 
-PART 2
+**Part 2**
 
 One of the hardest things about making the decision to screen a patient or not is understanding which patient factors may put them at a higher risk for breast cancer. In order to find what factors could potentially be more correlated with cancer, and those that our sample of doctors used in their recall decisions, we partitioned the data into training and testing splits and ran a random forest regression focused on recursive feature elimination in order to find the best subset of features for both our recall variable and recall observations, and on our cancer variable, in order to find what variables might more accurately predict that a patient is at higher risk for cancer.
 
@@ -185,13 +185,13 @@ One of the hardest things about making the decision to screen a patient or not i
 
 The reason for running this recursive feature elimination on the two separate outcomes is to see if there is a chance that doctors are focusing on the wrong, or lower correlation/accurate, variables when making their recall decisions. Additionally, due to the small sample size, and very low probability of both recall and cancer occurring, the recursive feature elimination randomly samples with replacement from this original data set in order to artificially increase our sample size so that we can attempt to find a more accurate prediction model. During this sampling process, it randomly selects different variables to use and holds on to the highest performing models before outputting the best predictive variables to be used in order to train a model to accurately predict the outcome variable based on cross validation. It is our hope that by doing this we can help doctors be more confident in their recall decision, and so that patients know whether they fall under a higher risk category or not.
 
-![image](https://user-images.githubusercontent.com/47119252/54460976-2c182a80-4739-11e9-8892-bc782dbe3097.png)
-![image](https://user-images.githubusercontent.com/47119252/54459529-ec4f4400-4734-11e9-9f7d-1d70f9f98d0b.png)
+![image](https://user-images.githubusercontent.com/47119252/54462607-620bdd80-473e-11e9-88b1-c615862036cd.png)
+![image](https://user-images.githubusercontent.com/47119252/54462383-9632ce80-473d-11e9-9f42-21557fd8824c.png)
 
-##           Reference
-## Prediction   0   1
-##          0 831 130
-##          1   8  18
+	##           Reference
+	## Prediction   0   1
+	##          0 831 130
+	##          1   8  18
 
 We first began by removing all radiologists from the dataset. By doing so we are hoping to remove any impact that persona bias or conservatism regarding recall decisions based on each individual doctor from affecting the regression. Next, using recall as the out outcome variable, we found that doctors tend to base their recall decision most commonly on the following variables: cancer, premenopause, postmenoNoHT, and age groups for those between 50-59 and 70 plus. We then included these variables in another, more finely tuned, random forest, neural net, and generalized linear model, in order to test these variables predictive power under different models and situations.
 
