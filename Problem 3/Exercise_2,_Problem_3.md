@@ -1,7 +1,10 @@
 Exercise 2, Problem 3
 ================
-Elliot
-3/15/2019
+Predicting when articles go viral
+----------------
+Regressing first and thresholding second.
+
+The confusion matrix that indicates a 42.7% error rate.
 
     ##    yhat
     ## y      0    1
@@ -10,19 +13,28 @@ Elliot
 
     ## [1] 0.4272922
 
+The true positive rate that correctly predicts viral articles that actually go viral.
+
 ``` r
-807/(807+3074) #(1,1)/[(1,1)+(0,1)]
+806/(806+3046) #(1,1)/[(1,1)+(0,1)]
 ```
 
-    ## [1] 0.2079361
+    ## [1] 0.209242
+
+The false positive rate that predicts articles will go viral but do not actually go viral.
 
 ``` r
-330/(3718+330) #(1,0)/[(1,0)+(0,0)]
+342/(3735+342) #(1,0)/[(1,0)+(0,0)]
 ```
 
     ## [1] 0.08152174
 
+The null model's performance.
+
     ## [1] 0.5065584
+
+Thresholding first and regressing second.
+The confusion matrix that indicates a 43.4% error rate.
 
     ##    yhat
     ## y      0    1
@@ -31,16 +43,22 @@ Elliot
 
     ## [1] 0.4341027
 
+The true positive rate that correctly predicts viral articles that actually go viral.
+
 ``` r
 834/(834+3026) #(1,1)/[(1,1)+(0,1)]
 ```
 
     ## [1] 0.2160622
 
+The false positive rate that predicts articles will go viral but do not actually go viral.
+
 ``` r
 344/(344+3725) #(1,0)/[(1,0)+(0,0)]
 ```
 
     ## [1] 0.08454166
+
+The null model's performance.
 
     ## [1] 0.5065584
