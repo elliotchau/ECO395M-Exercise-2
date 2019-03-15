@@ -51,15 +51,129 @@ PART 1
 
 In determining what factors are the best predictors for cancer, and thus for doctors to look for when making their recall decision, our first goal was to check and see if any of the radiologists in the data set were perhaps more conservative than others when making their decision. If perhaps one doctor was more likely to recall a patient regardless of actual significant risk factors, it could bias the small data set we have towards one radiologist’s decisions. 
 
-![image](https://user-images.githubusercontent.com/47119252/54459153-cffed780-4733-11e9-9626-b6682ee1a92b.png)
-
 We began by looking at the raw percentage of recalls in the data set and noticed that only 14.99% of all patients are recalled. Due to such a low percentage of recall occurrences, recall can therefore be termed a “rare outcome”, making accurate predictions more difficult. Next we looked at the raw number of percentages of breast cancer outcomes in out data set and noticed that there only 37 of the 987 positive cancer outcomes in the data, meaning that only 3.74% of all patients actually have cancer.  Finally, we did the same process in order to view the raw number and percentage of patients who were seen by each radiologist in order to determine whether any one radiologist had seen a larger proportion of patients than others. Each of the 5 radiologists is associated with roughly 20% of the observations in the data set meaning that they each have a near equal weight on the total number of patients. 
+
+	## Percentage of patients recalled
+	##         0         1 
+	## 0.8500507 0.1499493
+
+	## Breast cancer outcomes
+	##          0          1 
+	## 0.96251266 0.03748734
+
+	## Distribution of patients by radiologist
+	## radiologist13 radiologist34 radiologist66 radiologist89 radiologist95 
+	##     0.2006079     0.1995947     0.2006079     0.1995947     0.1995947
 
 Our next step was to create a table that compared each radiologist with the raw percentage of recall outcomes that they are associated with. From the raw data, it looks as though radiologist 89 and 66 have the highest proportion of recalls with 3.85% and 3.74%, respectively, of the total 15% of recalls that occur (or roughly 25.67% and 24.99% of the total number of recall outcomes. The lowest percentages of recall outcomes were those conducted by radiologist 34, whose recall decisions were only 1.77% of the original 15% (roughly 11.48% of the total recall outcomes). 
 
+	##   Recall rates by radiologist             
+	##                          0          1
+	##   radiologist13 0.17122594 0.02938197
+	##   radiologist34 0.18237082 0.01722391
+	##   radiologist66 0.16312057 0.03748734
+	##   radiologist89 0.16109422 0.03850051
+	##   radiologist95 0.17223911 0.02735562
+	
+	# Radiologist66 Percentage of all Recall = 1 outcomes
+	.037487/.1499493
+	## [1] 0.2499978
+	
+	# Radiologist89 Percentage of all Recall = 1 outcomes
+	.03850051/.1499493
+	## [1] 0.2567569
+	
+	# Radiologist34 Percentage of all Recall = 1 outcomes
+	.01722391/.1499493
+	## [1] 0.1148649
+
 Although it is clear that some radiologists have much higher recall percentages than others, because this is only based on the raw data, we do not know whether some radiologists see a larger number of patients who, due to their specific risk factors, are at a greater risk for breast cancer. Therefore in order to find whether some of the radiologists are perhaps more clinically conservative than others, we must find the proportion of recalls associated with each radiologist while holding all patient risk factors fixed.
 
-In order to do this, we created four generalized linear models to find out which radiologists have a higher recall rate, regardless of the set of patients that they have actually seen. The first model regresses cancer on recall in order to find what the odds are that someone is recalled given that they actually have cancer. This regression came back statistically significant, as one would hope, and it is clear that if a patient does have cancer, the chances that they are recalled by a doctor are incredibly high. However, due to the low percentage of recall outcomes, it has a very high deviance score. The next model regresses all variables in the data set on recall and also comes back with a high deviance score, however when looking at the odds rations for each radiologist, we can see that radiologists 66 and 89 are 1.49 and 1.61 times more likely to recall a patient than radiologist 13 who is the omitted category. It should also be noted that each radiologist did come back as statistically significant at a .05% level, and thus each radiologist individually affects a recall decision, and not just the patient risk factors. Our next model included and interaction between radiologist and cancer in order to control for cancers affect on recall in association with each radiologist. Something to note here is that radiologist34 actually came back as statistically significant on recall outcomes when the interaction variables were included even though the odds of them recalling a patient are only .053 times as likely to recall a patient as radiologist13 (compared to radiologist89 who is 1.5 times more likely to recall a patient than radiologist13).
+![image](https://user-images.githubusercontent.com/47119252/54459153-cffed780-4733-11e9-9626-b6682ee1a92b.png)
+
+In order to do this, we created four generalized linear models to find out which radiologists have a higher recall rate, regardless of the set of patients that they have actually seen. The first model regresses cancer on recall in order to find what the odds are that someone is recalled given that they actually have cancer. This regression came back statistically significant, as one would hope, and it is clear that if a patient does have cancer, the chances that they are recalled by a doctor are incredibly high. However, due to the low percentage of recall outcomes, it has a very high deviance score. The next model regresses all variables in the data set on recall and also comes back with a high deviance score, however when looking at the odds rations for each radiologist, we can see that radiologists 66 and 89 are 1.49 and 1.61 times more likely to recall a patient than radiologist 13 who is the omitted category. It should also be noted that each radiologist did come back as statistically significant at a 5% level, and thus each radiologist individually affects a recall decision, and not just the patient risk factors. Our next model included and interaction between radiologist and cancer in order to control for cancers affect on recall in association with each radiologist. Something to note here is that radiologist34 actually came back as statistically significant on recall outcomes when the interaction variables were included even though the odds of them recalling a patient are only .053 times as likely to recall a patient as radiologist13 (compared to radiologist89 who is 1.5 times more likely to recall a patient than radiologist13).
+
+Model 1 
+
+	## glm(formula = recall ~ cancer, family = binomial, data = brca)
+	## 
+	## Deviance Residuals: 
+	##     Min       1Q   Median       3Q      Max  
+	## -1.3438  -0.5335  -0.5335  -0.5335   2.0101  
+	## 
+	## Coefficients:
+	##             Estimate Std. Error z value Pr(>|z|)    
+	## (Intercept) -1.87789    0.09566 -19.632  < 2e-16 ***
+	## cancer       2.26088    0.34824   6.492 8.45e-11 ***
+	## ---
+	## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+	## AIC: 797.54
+
+Model 2
+
+	## glm(formula = recall ~ ., family = binomial, data = brca)
+	## Deviance Residuals: 
+	##     Min       1Q   Median       3Q      Max  
+	## -1.8567  -0.5947  -0.4830  -0.3528   2.4764  
+	## 
+	## Coefficients:
+	##                          Estimate Std. Error z value Pr(>|z|)    
+	## (Intercept)              -3.24374    0.64912  -4.997 5.82e-07 ***
+	## radiologistradiologist34 -0.53836    0.33887  -1.589   0.1121    
+	## radiologistradiologist66  0.40123    0.28724   1.397   0.1625    
+	## radiologistradiologist89  0.47706    0.28889   1.651   0.0987 .  
+	## radiologistradiologist95 -0.03225    0.30365  -0.106   0.9154    
+	## cancer                    2.33473    0.36798   6.345 2.23e-10 ***
+	## ageage5059                0.05406    0.30432   0.178   0.8590    
+	## ageage6069                0.11133    0.37262   0.299   0.7651    
+	## ageage70plus             -0.08370    0.38204  -0.219   0.8266    
+	## history                   0.19412    0.24102   0.805   0.4206    
+	## symptoms                  0.72787    0.36837   1.976   0.0482 *  
+	## menopausepostmenoNoHT    -0.16826    0.24537  -0.686   0.4929    
+	## menopausepostmenounknown  0.26391    0.49040   0.538   0.5905    
+	## menopausepremeno          0.33272    0.32248   1.032   0.3022    
+	## densitydensity2           1.11998    0.54165   2.068   0.0387 *  
+	## densitydensity3           1.30053    0.53861   2.415   0.0158 *  
+	## densitydensity4           0.68877    0.61237   1.125   0.2607    
+	## ---
+	## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+	## AIC: 793.76
+
+Model 3
+
+	## glm(formula = recall ~ . + radiologist * cancer, family = binomial, 
+	##     data = brca)
+	## 
+	## Deviance Residuals: 
+	##     Min       1Q   Median       3Q      Max  
+	## -1.9471  -0.5895  -0.4774  -0.3400   2.4975  
+	## 
+	## Coefficients:
+	##                                 Estimate Std. Error z value Pr(>|z|)    
+	## (Intercept)                     -3.19858    0.65223  -4.904 9.39e-07 ***
+	## radiologistradiologist34        -0.63375    0.36236  -1.749   0.0803 .  
+	## radiologistradiologist66         0.44230    0.29669   1.491   0.1360    
+	## radiologistradiologist89         0.43839    0.29812   1.471   0.1414    
+	## radiologistradiologist95        -0.08943    0.31697  -0.282   0.7778    
+	## cancer                           2.04262    0.76141   2.683   0.0073 ** 
+	## ageage5059                       0.03017    0.30592   0.099   0.9214    
+	## ageage6069                       0.11120    0.37284   0.298   0.7655    
+	## ageage70plus                    -0.12159    0.38805  -0.313   0.7540    
+	## history                          0.15894    0.24522   0.648   0.5169    
+	## symptoms                         0.68873    0.37609   1.831   0.0671 .  
+	## menopausepostmenoNoHT           -0.19178    0.24595  -0.780   0.4355    
+	## menopausepostmenounknown         0.18079    0.50439   0.358   0.7200    
+	## menopausepremeno                 0.30213    0.32398   0.933   0.3510    
+	## densitydensity2                  1.14340    0.54471   2.099   0.0358 *  
+	## densitydensity3                  1.32390    0.54173   2.444   0.0145 *  
+	## densitydensity4                  0.67985    0.61631   1.103   0.2700    
+	## radiologistradiologist34:cancer  0.96921    1.14450   0.847   0.3971    
+	## radiologistradiologist66:cancer -0.53243    1.06758  -0.499   0.6180    
+	## radiologistradiologist89:cancer  0.50713    1.16496   0.435   0.6633    
+	## radiologistradiologist95:cancer  0.87815    1.16698   0.752   0.4518    
+	## ---
+	## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+	## AIC: 799.3
 
 From these models, we can see that even when we hold patient factors constant for all radiologists, radiologist89 and radiologist66 are more clinically conservative than their colleagues due to having much larger odds for recalling patients than radiologists 13, 34, and 95.
 
@@ -71,7 +185,13 @@ One of the hardest things about making the decision to screen a patient or not i
 
 The reason for running this recursive feature elimination on the two separate outcomes is to see if there is a chance that doctors are focusing on the wrong, or lower correlation/accurate, variables when making their recall decisions. Additionally, due to the small sample size, and very low probability of both recall and cancer occurring, the recursive feature elimination randomly samples with replacement from this original data set in order to artificially increase our sample size so that we can attempt to find a more accurate prediction model. During this sampling process, it randomly selects different variables to use and holds on to the highest performing models before outputting the best predictive variables to be used in order to train a model to accurately predict the outcome variable based on cross validation. It is our hope that by doing this we can help doctors be more confident in their recall decision, and so that patients know whether they fall under a higher risk category or not.
 
+![image](https://user-images.githubusercontent.com/47119252/54460976-2c182a80-4739-11e9-8892-bc782dbe3097.png)
 ![image](https://user-images.githubusercontent.com/47119252/54459529-ec4f4400-4734-11e9-9f7d-1d70f9f98d0b.png)
+
+##           Reference
+## Prediction   0   1
+##          0 831 130
+##          1   8  18
 
 We first began by removing all radiologists from the dataset. By doing so we are hoping to remove any impact that persona bias or conservatism regarding recall decisions based on each individual doctor from affecting the regression. Next, using recall as the out outcome variable, we found that doctors tend to base their recall decision most commonly on the following variables: cancer, premenopause, postmenoNoHT, and age groups for those between 50-59 and 70 plus. We then included these variables in another, more finely tuned, random forest, neural net, and generalized linear model, in order to test these variables predictive power under different models and situations.
 
