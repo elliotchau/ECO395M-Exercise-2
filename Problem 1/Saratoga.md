@@ -12,6 +12,7 @@ In order to assess your property’s value, we used several models that included
 
 
 The following is the set of characteristics along with descriptions:
+
 		lotSize: the amount of land occupied by the property (in acres)
 		landValue: the intrinsic value of just the land itself (in dollars)
 		waterfrontDummy: determines if the house is set by a waterfront
@@ -31,6 +32,7 @@ We evaluate some of these characteristics together -- i.e. we see what effects s
 
 
 In order to predict the value of your house, we evaluated two different styles of models:
+
 	(1)	An independent model using a combination of the characteristics listed above (just to be clear: linear model).
 	(2)	The mean price of houses with similar characteristics as yours (just to be clear: KNN). 
 
