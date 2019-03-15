@@ -12,19 +12,19 @@ In order to assess your property’s value, we used several models that included
 
 
 The following is the set of characteristics along with descriptions:
-	lotSize: the amount of land occupied by the property (in acres)
-	landValue: the intrinsic value of just the land itself (in dollars)
-	waterfrontDummy: determines if the house is set by a waterfront
-	centralAirDummy: determines if heating and cooling is delivered centrally
-	newConstructionDummy: determines if the house was newly built
-	age: the age of the house (in years)
-	ageSq: the possibility of changing price behavior of age as it increases
-	bedrooms: the number of bedrooms in the house
-	bathrooms: the number of bathrooms in the house
-	heating: how the house the heated; electric, hot water/steam, or hot air
-	livingArea: the amount of usable space in the house (in square feet)
-	pctCollege: the percentage of adults in the neighborhood that have a college degree
-	valueSqFt: landValue/livingArea to compute an intrinsic $/sq ft output
+		lotSize: the amount of land occupied by the property (in acres)
+		landValue: the intrinsic value of just the land itself (in dollars)
+		waterfrontDummy: determines if the house is set by a waterfront
+		centralAirDummy: determines if heating and cooling is delivered centrally
+		newConstructionDummy: determines if the house was newly built
+		age: the age of the house (in years)
+		ageSq: the possibility of changing price behavior of age as it increases
+		bedrooms: the number of bedrooms in the house
+		bathrooms: the number of bathrooms in the house
+		heating: how the house the heated; electric, hot water/steam, or hot air
+		livingArea: the amount of usable space in the house (in square feet)
+		pctCollege: the percentage of adults in the neighborhood that have a college degree
+		valueSqFt: landValue/livingArea to compute an intrinsic $/sq ft output
 
 
 We evaluate some of these characteristics together -- i.e. we see what effects some of the terms have on each other. For example, having more bathrooms relative to the number of rooms in your house increases the house's valuation. 
