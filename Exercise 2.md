@@ -44,6 +44,11 @@ Calculations were performed to determine how accurate our models were in predict
 
 ![](Saratoga_files/figure-markdown_github/pressure-1.png)
 
+Problem 2
+================
+Hospital audit
+----------------
+
 
 Problem 3
 ================
