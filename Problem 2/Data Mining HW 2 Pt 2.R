@@ -1,5 +1,8 @@
+### PART 2
 library(caret)
 library(ggplot2)
+
+brca <- read.csv("https://raw.githubusercontent.com/jgscott/ECO395M/master/data/brca.csv")
 
 # Duplicate origial dataset to create train/test data
 brcaRe = brca
