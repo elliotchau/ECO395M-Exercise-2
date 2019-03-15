@@ -114,4 +114,6 @@ The null model's performance.
 
     ## [1] 0.5065584
 
-Based on these results, we conclude that there is a tradeoff between the overall error rate and the individual rates of correct identification. Regressing first leads to lower overall error but higher accuracy for true/false positives. If thresholding first, the results are the opposite. 
+Based on these results, we conclude that there is a tradeoff between the overall error rate and the individual rates of correct identification. Regressing first leads to lower overall error but higher accuracy for true/false positives. If thresholding first, the results are the opposite. It depends on what metric the predictor wants to optimize.
+
+The predicted error rate of just over 40% is a bit more than an advantageous coin flip. It is difficult to predict which articles go viral due to the dynamic nature of internet culture and dynamic contemporary events. In addition, it is also difficult to determine how compelling the article is in order to motivate people to share it.
