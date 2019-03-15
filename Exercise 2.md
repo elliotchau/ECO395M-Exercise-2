@@ -38,7 +38,7 @@ In order to predict the value of your house, we evaluated two different styles o
 	(1)	An independent model using a combination of the characteristics listed above (just to be clear: linear model).
 	(2)	The mean price of houses with similar characteristics (just to be clear: KNN). 
 
-Calculations were performed to determine how accurate our models were in predicting house values. Because these models are projections, each method carries a certain amount of error in its measurement. Our objective is to minimize this error. In doing so, we computed errors from Model 1 and errors from eight similar houses in Model 2. We found that Model 1 carried a lower error. This indicates that Model 1 is a better assessment of property values so that your property taxes are computed more accurately.
+Calculations were performed to determine how accurate our models were in predicting house values. Because these models are projections, each method carries a certain amount of error in its measurement. Our objective is to minimize this error. In doing so, we computed errors from Model 1 and errors from eight similar houses in Model 2. We found that Model 1 carried a lower error. This indicates that Model 1 is a better assessment of property values so that property taxes are computed more accurately.
 
 
 ![rmseGrid](https://user-images.githubusercontent.com/47119252/54454908-8bba0a00-4728-11e9-8bec-443216f201e5.png)
