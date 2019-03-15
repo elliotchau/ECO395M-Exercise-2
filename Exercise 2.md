@@ -49,7 +49,9 @@ Hospital audit
 ----------------
 PART 1
 
-In determining what factors are the best predictors for cancer, and thus for doctors to look for when making their recall decision, or first goal was to check and see if any of the radiologists in the data set were perhaps more conservative than others when making their decision. If perhaps one doctor was more likely to recall a patient regardless of actual significant risk factors, it could bias the small data set we have towards one radiologist’s decisions. 
+In determining what factors are the best predictors for cancer, and thus for doctors to look for when making their recall decision, our first goal was to check and see if any of the radiologists in the data set were perhaps more conservative than others when making their decision. If perhaps one doctor was more likely to recall a patient regardless of actual significant risk factors, it could bias the small data set we have towards one radiologist’s decisions. 
+
+![image](https://user-images.githubusercontent.com/47119252/54459153-cffed780-4733-11e9-9626-b6682ee1a92b.png)
 
 We began by looking at the raw percentage of recalls in the data set and noticed that only 14.99% of all patients are recalled. Due to such a low percentage of recall occurrences, recall can therefore be termed a “rare outcome”, making accurate predictions more difficult. Next we looked at the raw number of percentages of breast cancer outcomes in out data set and noticed that there only 37 of the 987 positive cancer outcomes in the data, meaning that only 3.74% of all patients actually have cancer.  Finally, we did the same process in order to view the raw number and percentage of patients who were seen by each radiologist in order to determine whether any one radiologist had seen a larger proportion of patients than others. Each of the 5 radiologists is associated with roughly 20% of the observations in the data set meaning that they each have a near equal weight on the total number of patients. 
 
@@ -65,15 +67,29 @@ PART 2
 
 One of the hardest things about making the decision to screen a patient or not is understanding which patient factors may put them at a higher risk for breast cancer. In order to find what factors could potentially be more correlated with cancer, and those that our sample of doctors used in their recall decisions, we partitioned the data into training and testing splits and ran a random forest regression focused on recursive feature elimination in order to find the best subset of features for both our recall variable and recall observations, and on our cancer variable, in order to find what variables might more accurately predict that a patient is at higher risk for cancer.
 
+![image](https://user-images.githubusercontent.com/47119252/54459328-6206e000-4734-11e9-9c10-48dfb988e021.png)
+
 The reason for running this recursive feature elimination on the two separate outcomes is to see if there is a chance that doctors are focusing on the wrong, or lower correlation/accurate, variables when making their recall decisions. Additionally, due to the small sample size, and very low probability of both recall and cancer occurring, the recursive feature elimination randomly samples with replacement from this original data set in order to artificially increase our sample size so that we can attempt to find a more accurate prediction model. During this sampling process, it randomly selects different variables to use and holds on to the highest performing models before outputting the best predictive variables to be used in order to train a model to accurately predict the outcome variable based on cross validation. It is our hope that by doing this we can help doctors be more confident in their recall decision, and so that patients know whether they fall under a higher risk category or not.
+
+![image](https://user-images.githubusercontent.com/47119252/54459529-ec4f4400-4734-11e9-9f7d-1d70f9f98d0b.png)
 
 We first began by removing all radiologists from the dataset. By doing so we are hoping to remove any impact that persona bias or conservatism regarding recall decisions based on each individual doctor from affecting the regression. Next, using recall as the out outcome variable, we found that doctors tend to base their recall decision most commonly on the following variables: cancer, premenopause, postmenoNoHT, and age groups for those between 50-59 and 70 plus. We then included these variables in another, more finely tuned, random forest, neural net, and generalized linear model, in order to test these variables predictive power under different models and situations.
 
+![image](https://user-images.githubusercontent.com/47119252/54459659-4cde8100-4735-11e9-8357-585099a757ea.png)
+![image](https://user-images.githubusercontent.com/47119252/54459695-6b447c80-4735-11e9-9a68-909abe31cb75.png)
+![image](https://user-images.githubusercontent.com/47119252/54459882-f291f000-4735-11e9-98f7-63f0741cff65.png)
+
 The neural net and random forest models came back with the most accurate and significant of the three regressions. Both had an accuracy rating of roughly 86.02% and a Kappa rating of 16.97%, meaning that they are relatively useful and accurate for out of sample prediction. The GLM model returned a statistically significant accuracy rating of 85.21% and a 12.89% kappa rating. Each model came back with a high true positive rate and low false positive rate, and therefore we can assume that all of these variables are indeed good predictors of what doctors tend to look for when making their recall decision based on cross validation. 
+
+![image](https://user-images.githubusercontent.com/47119252/54459961-2b31c980-4736-11e9-88c2-73e91dd3caa3.png)
 
 Next we followed the same procedure and used cancer as the outcome variable. Using the recursive feature elimination, our model narrowed the important variables down to recall, density4, age 60-69, pre-menopause, and density3. This time the neural net returned a statistically significant accuracy rate of 96%, however it also had a kappa value of 0% and thus has no true out of sample predictive power. This is likely due to the very small number of cancer outcomes in the data set, and thus it did not obtain enough data to give back any truly useful information. The GLM model however returned a 96.15% accuracy rate that is statistically significant with a kappa rating of 12.59%, as well as a low false positive and a high positive prediction value. Therefore we can assume that the neural net model was likely heavily over fitted and therefore a simpler model is likely to give better results. 
 
+![image](https://user-images.githubusercontent.com/47119252/54459914-0dfcfb00-4736-11e9-8f25-ca7baa4b35cb.png)
+
 Last, we used the recall predictors in a GLM model with cancer as the outcome variable in order to see if it could potentially give more accurate results than those from the original regression. This model did have a higher accuracy rating, however it has a kappa rating of 0% and thus is not useful for out of sample prediction. Although we are confident that doctors are not completely inaccurate in their decision for recalling, the reason such a low out of sample prediction rate occurred is likely due to the very small number of cancer outcomes in our sample size. 
+
+![image](https://user-images.githubusercontent.com/47119252/54460041-646a3980-4736-11e9-860a-c31681483d63.png)
 
 Using the data that we have been given, and advanced statistical regression techniques, we believe that the models and variables that we have provided may be of some use for doctors who are concerned with whether they are paying attention to the right factors regarding their patients potential for testing positive for cancer during a mammogram screening, and whether they should make a recall decision. We still believe that it is worthwhile to take the variables that we have found through our regression into consideration, and hope that doing so will lead to less unnecessary recalls in the future, and more accurate cancer detection rates. 
 
